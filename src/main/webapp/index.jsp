@@ -2,12 +2,10 @@
 	pageEncoding="UTF-8"%>
 
 <%
-// If user already logged in → go to dashboard
 if (session.getAttribute("user") != null) {
-	response.sendRedirect("dashboard");
+    response.sendRedirect("dashboard");
 } else {
-	// Otherwise go to login servlet (NOT directly JSP)
-	response.sendRedirect("login");
+    response.sendRedirect("views/login.jsp");
 }
 %>
 
