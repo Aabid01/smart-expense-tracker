@@ -30,9 +30,9 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null) {
             req.getSession().setAttribute("user", user);
-            res.sendRedirect("dashboard");
+            res.sendRedirect(req.getContextPath() + "/dashboard");   // ✅ FIX
         } else {
-            res.sendRedirect("login?error=1");
+            res.sendRedirect(req.getContextPath() + "/login?error=1"); // ✅ FIX
         }
     }
 }

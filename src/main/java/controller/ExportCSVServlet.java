@@ -24,7 +24,7 @@ public class ExportCSVServlet extends HttpServlet {
             User user = (User) req.getSession().getAttribute("user");
 
             if (user == null) {
-                res.sendRedirect("login");
+                res.sendRedirect(req.getContextPath() + "/login");  // ✅
                 return;
             }
 

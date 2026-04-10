@@ -29,9 +29,9 @@ public class SignupServlet extends HttpServlet {
         u.setPassword(req.getParameter("password"));
 
         if (new UserDAO().register(u)) {
-            res.sendRedirect("login?success=1");
+            res.sendRedirect(req.getContextPath() + "/login?success=1");  // ✅
         } else {
-            res.sendRedirect("signup?error=1");
+            res.sendRedirect(req.getContextPath() + "/signup?error=1");   // ✅
         }
     }
 }

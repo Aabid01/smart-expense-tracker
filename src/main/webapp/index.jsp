@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 
 <%
+String context = request.getContextPath();
+
 if (session.getAttribute("user") != null) {
-    response.sendRedirect("dashboard");
-} else {
-    response.sendRedirect("views/login.jsp");
+    response.sendRedirect(context + "/dashboard");
 }
 %>
 
@@ -15,9 +15,7 @@ if (session.getAttribute("user") != null) {
 <meta charset="UTF-8">
 <title>Smart Expense Tracker</title>
 
-<!-- Bootstrap -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 </head>
 
@@ -26,12 +24,11 @@ if (session.getAttribute("user") != null) {
 	<div class="container text-center mt-5">
 
 		<h1 class="mb-4">💰 Smart Expense Tracker</h1>
-		<p class="lead">Track your expenses, manage your budget, and stay
-			in control.</p>
+		<p class="lead">Track your expenses, manage your budget, and stay in control.</p>
 
 		<div class="mt-4">
-			<a href="views/login.jsp" class="btn btn-primary btn-lg me-2">Login</a>
-			<a href="views/signup.jsp" class="btn btn-success btn-lg">Signup</a>
+			<a href="<%=context%>/login" class="btn btn-primary btn-lg me-2">Login</a>
+			<a href="<%=context%>/views/signup.jsp" class="btn btn-success btn-lg">Signup</a>
 		</div>
 
 	</div>

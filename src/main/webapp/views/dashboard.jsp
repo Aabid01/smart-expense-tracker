@@ -17,7 +17,8 @@
 	<!-- NAVBAR -->
 	<nav class="navbar navbar-dark bg-dark">
 		<div class="container-fluid">
-			<span class="navbar-brand">Expense Tracker</span> <a href="logout"
+			<span class="navbar-brand">💰 Expense Tracker</span> <a
+				href="<%=request.getContextPath()%>/logout"
 				class="btn btn-outline-light">Logout</a>
 		</div>
 	</nav>
