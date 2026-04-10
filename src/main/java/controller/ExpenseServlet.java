@@ -1,15 +1,20 @@
 package controller;
 
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
 import java.io.IOException;
+
 import dao.ExpenseDAO;
-import model.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import model.Expense;
+import model.User;
 
 @WebServlet("/expense")
 public class ExpenseServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+    @Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException {
 
         try {

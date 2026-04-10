@@ -1,6 +1,7 @@
 package util;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class DBConnection {
 
@@ -15,7 +16,7 @@ public class DBConnection {
             rawUrl = "jdbc:mysql://localhost:3306/expense_tracker";
             user = "root";
             pass = "your_password";
-        } 
+        }
         // ✅ Railway URL fix
         else {
             rawUrl = rawUrl.replace("mysql://", "jdbc:mysql://")
