@@ -14,9 +14,7 @@
     <button class="btn btn-primary">Login</button>
 </form>
 
-<a href="<%=request.getContextPath()%>/signup" class="btn btn-link">
-    Create Account
-</a>
+<a href="<%=request.getContextPath()%>/signup">Create Account</a>
 
 </body>
 </html>

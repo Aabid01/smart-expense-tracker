@@ -29,7 +29,7 @@
 
 		<!-- ADD EXPENSE -->
 		<div class="card p-3 shadow mb-4">
-			<form action="expense" method="post">
+			<form action="<%=request.getContextPath()%>/expense" method="post">
 				<input type="hidden" name="action" value="add"> <input
 					type="number" step="0.01" name="amount" placeholder="Amount"
 					class="form-control mb-2" required> <select name="category"

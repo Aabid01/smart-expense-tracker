@@ -1,66 +1,61 @@
 package controller;
 
 import java.io.IOException;
-
 import dao.ExpenseDAO;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import model.Expense;
-import model.User;
+import jakarta.servlet.http.*;
+import model.*;
 
 @WebServlet("/expense")
 public class ExpenseServlet extends HttpServlet {
 
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
+            throws IOException {
 
-		try {
-			User user = (User) req.getSession().getAttribute("user");
+        try {
+            User user = (User) req.getSession().getAttribute("user");
 
-			if (user == null) {
-				res.sendRedirect(req.getContextPath() + "/login");
-				return;
-			}
+            if (user == null) {
+                res.sendRedirect("login");
+                return;
+            }
 
-			String action = req.getParameter("action");
-			ExpenseDAO dao = new ExpenseDAO();
+            String action = req.getParameter("action");
+            ExpenseDAO dao = new ExpenseDAO();
 
-			// ✅ ADD EXPENSE (existing functionality)
-			if ("add".equals(action)) {
+            if ("add".equals(action)) {
 
-				Expense e = new Expense();
-				e.setUserId(user.getId());
-				e.setAmount(Double.parseDouble(req.getParameter("amount")));
-				e.setCategory(req.getParameter("category"));
-				e.setDescription(req.getParameter("description"));
-				e.setDate(new java.util.Date());
+                Expense e = new Expense();
+                e.setUserId(user.getId());
+                e.setAmount(Double.parseDouble(req.getParameter("amount")));
+                e.setCategory(req.getParameter("category"));
+                e.setDescription(req.getParameter("description"));
+                e.setDate(new java.util.Date());
 
-				dao.addExpense(e);
-			}
+                dao.addExpense(e);
+            }
 
-			// ✅ UPDATE EXPENSE (new functionality)
-			else if ("update".equals(action)) {
+            else if ("update".equals(action)) {
 
-				int id = Integer.parseInt(req.getParameter("id"));
+                Expense e = new Expense();
+                e.setId(Integer.parseInt(req.getParameter("id")));
+                e.setAmount(Double.parseDouble(req.getParameter("amount")));
+                e.setCategory(req.getParameter("category"));
+                e.setDescription(req.getParameter("description"));
 
-				Expense e = new Expense();
-				e.setId(id);
-				e.setUserId(user.getId());
-				e.setAmount(Double.parseDouble(req.getParameter("amount")));
-				e.setCategory(req.getParameter("category"));
-				e.setDescription(req.getParameter("description"));
-				e.setDate(new java.util.Date());
+                dao.updateExpense(e);
+            }
 
-				dao.updateExpense(e);
-			}
+            else if ("delete".equals(action)) {
+                int id = Integer.parseInt(req.getParameter("id"));
+                dao.deleteExpense(id);
+            }
 
-			res.sendRedirect(req.getContextPath() + "/dashboard");
+            res.sendRedirect("dashboard");
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			res.sendRedirect(req.getContextPath() + "/dashboard?error=1");
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.sendRedirect("dashboard?error=1");
+        }
+    }
 }
