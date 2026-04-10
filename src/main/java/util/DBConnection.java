@@ -4,15 +4,25 @@ import java.sql.*;
 
 public class DBConnection {
 
-	private static final String URL = System.getenv("DB_URL") != null ? System.getenv("DB_URL")
-			: "jdbc:mysql://localhost:3306/expense_tracker";
+    public static Connection getConnection() throws Exception {
 
-	private static final String USER = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : "root";
+        String rawUrl = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String pass = System.getenv("DB_PASS");
 
-	private static final String PASS = System.getenv("DB_PASS") != null ? System.getenv("DB_PASS") : "qwerty";
+        // ✅ Local fallback (for testing)
+        if (rawUrl == null) {
+            rawUrl = "jdbc:mysql://localhost:3306/expense_tracker";
+            user = "root";
+            pass = "your_password";
+        } 
+        // ✅ Railway URL fix
+        else {
+            rawUrl = rawUrl.replace("mysql://", "jdbc:mysql://")
+                           + "?useSSL=false&allowPublicKeyRetrieval=true";
+        }
 
-	public static Connection getConnection() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		return DriverManager.getConnection(URL, USER, PASS);
-	}
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(rawUrl, user, pass);
+    }
 }
